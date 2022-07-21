@@ -1,5 +1,4 @@
 # 💻 **_Deep Learning Papers Review & Implementation_**  
-***  
 
 Thanks for visiting my github! 😄  
 
