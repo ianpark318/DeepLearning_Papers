@@ -5,6 +5,9 @@ Thanks for visiting my github! 😄
 This repo consists of **my deep learning paper** reviews and **pytorch implmentation codes**.
 ***
 ## 📑 **Covered Papers**
+### Basic Deep Learning  
+* [LeNet](https://ieeexplore.ieee.org/document/726791)
+
 ### _Segmentation_
 * [U-Net: Convolutional Networks for Biomedical Image Segmentation
 ](https://arxiv.org/abs/1505.04597)  
