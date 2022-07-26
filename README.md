@@ -5,7 +5,7 @@ Thanks for visiting my github! 😄
 This repo consists of **my deep learning paper** reviews and **pytorch implmentation codes**.
 ***
 ## 📑 **Covered Papers**
-### Basic Deep Learning  
+### _Basic Deep Learning_  
 * [LeNet](https://ieeexplore.ieee.org/document/726791)
 
 ### _Segmentation_
