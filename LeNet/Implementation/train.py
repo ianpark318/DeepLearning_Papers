@@ -6,9 +6,9 @@ from torchvision import datasets
 from torchvision import transforms
 from torch.utils.data import DataLoader
 
-lr = 0.1
+lr = 1e-3
 batch_size = 64
-num_epoch = 5
+num_epoch = 10
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = LeNet().to(device)
@@ -32,41 +32,42 @@ test_data = datasets.MNIST(
 train_dataloader = DataLoader(training_data, batch_size=batch_size, shuffle=False, num_workers=8)
 test_dataloader = DataLoader(test_data, batch_size=batch_size, shuffle=False, num_workers=8)
 
-num_batch_train = np.ceil(len(training_data) / batch_size)
+def train_loop(dataloader, model, loss_fn, optimizer):
+    size = len(dataloader.dataset)
+    for batch, (X, y) in enumerate(dataloader):
+        # Compute prediction and loss
+        X, y = X.to(device), y.to(device)
+        pred = model(X)
+        loss = loss_fn(pred, y)
 
-def train_model():
-    for epoch in range(num_epoch):
-        model.train()
+        # Backpropagation
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
 
-        for batch, data in enumerate(train_dataloader, 1):
-            X, y = data
-            X, y = X.to(device), y.to(device)
-            y_hat = model(X)
-            loss = loss_fn(y_hat, y)
-            loss.backward()
-            optimizer.step()
+        if batch % 100 == 0:
+            loss, current = loss.item(), batch * len(X)
+            print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
 
-            print("TRAIN: EPOCH %04d / %04d | BATCH %04d / %04d | LOSS %.4f" %
-                  (epoch + 1, num_epoch, batch, num_batch_train, loss.item()))
 
-def test_model():
-    total = 0
-    correct = 0
+def test_loop(dataloader, model, loss_fn):
+    size = len(dataloader.dataset)
+    num_batches = len(dataloader)
+    test_loss, correct = 0, 0
+
     with torch.no_grad():
-        model.eval()
-        loss_arr = []
-
-        for batch, (X, y) in enumerate(test_dataloader, 1):
-            optimizer.zero_grad()
+        for X, y in dataloader:
             X, y = X.to(device), y.to(device)
+            pred = model(X)
+            test_loss += loss_fn(pred, y).item()
+            correct += (pred.argmax(1) == y).type(torch.float).sum().item()
 
-            y_hat = net(X)
-            _, y_hat = torch.max(y_hat, 1)
-            total += y.size(0)
-            correct += (y_hat == y).sum().float()
+    test_loss /= num_batches
+    correct /= size
+    print(f"Test Error: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
 
-        print("Accuracy of Test Data: {}%".format(100 * correct / total))
-
-if __name__ == "__main__":
-    train_model()
-    test_model()
+for t in range(num_epoch):
+    print(f"Epoch {t+1}\n-------------------------------")
+    train_loop(train_dataloader, model, loss_fn, optimizer)
+    test_loop(test_dataloader, model, loss_fn)
+print("Done!")
