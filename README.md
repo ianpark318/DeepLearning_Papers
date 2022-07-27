@@ -2,7 +2,7 @@
 
 Thanks for visiting my github! 😄  
 
-This repo consists of **my deep learning paper reviews** and **pytorch implmentation codes**.
+This repo consists of **my deep learning paper reviews** and **pytorch implementation codes**.
 ***
 ## 📑 **Covered Papers**
 ### _Basic Deep Learning_  
