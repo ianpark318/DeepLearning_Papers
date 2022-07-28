@@ -18,7 +18,7 @@ Each paper has it's own directory `paper_name`
   
 Inside of it, you can find  
 * `Implementation` directory which consists of pytorch implementation codes and it's datasets(or results).  
-* `paper_name.ipynb` is my paper review written in jupyter notebook.  
+* `paper_name.md` is my paper review written in markdown.  
   
 If you have any questions or feedbacks, just notice me by e-mail📩.  
   
