@@ -6,6 +6,7 @@ This repo consists of **my deep learning paper reviews** and **pytorch implement
 ***
 ## 📑 **Covered Papers**
 ### _Basic Deep Learning_  
+* [AlexNet](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)
 * [LeNet](https://ieeexplore.ieee.org/document/726791)
 
 ### _Segmentation_
